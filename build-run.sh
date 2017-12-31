@@ -21,7 +21,7 @@ meteor build --server-only --directory $DEPLOY_DIR
 
 ### RUN
 cd $DEPLOY_DIR/bundle/programs/server
-npm install
+cnpm install --cache-min 9999999
 
 cd $DEPLOY_DIR/bundle
 NODE_ENV=production \
