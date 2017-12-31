@@ -3,16 +3,16 @@ set -x
 set -euvo pipefail
 IFS=$'\n\t'
 
-ROOTPATH=/var/www/rocket.chat
+ROOTPATH=/mnt/ext/home_meteor/var/www/rocket.chat
 PM2FILE=pm2.json
 if [ "$1" == "development" ]; then
-  ROOTPATH=/var/www/rocket.chat.dev
+  ROOTPATH=/mnt/ext/home_meteor/var/www/rocket.chat.dev
   PM2FILE=pm2.dev.json
 fi
 
 cd $ROOTPATH
-curl -fSL "https://s3.amazonaws.com/rocketchatbuild/rocket.chat-develop.tgz" -o rocket.chat.tgz
+curl -fSL "https://github.com/haopf/Rocket.Chat.git" -o rocket.chat.tgz
 tar zxf rocket.chat.tgz  &&  rm rocket.chat.tgz
 cd $ROOTPATH/bundle/programs/server
-npm install
+cnpm install --cache-min 9999999
 pm2 startOrRestart $ROOTPATH/current/$PM2FILE
